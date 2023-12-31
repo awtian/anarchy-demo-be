@@ -11,7 +11,7 @@ const axios = require("axios")
 const googleOauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'http://localhost:3333/auth/google/callback'
+    `${process.env.SERVER_URL}/auth/google/callback`
 )
 
 router.get('/google', (req, res) => {
@@ -56,7 +56,7 @@ router.get('/google/callback', async (req, res) => {
         
         const userPayload = {name: user.name, username: user.username, id: user.id, provider: user.provider}
 
-        res.redirect(`http://localhost:5173/?token=${jwt.sign(userPayload, process.env.JWT_SECRET)}`)
+        res.redirect(`${process.env.CLIENT_URL}/?token=${jwt.sign(userPayload, process.env.JWT_SECRET)}`)
     
         // res.send({userPayload, token: jwt.sign(userPayload, process.env.JWT_SECRET)})
     } catch (e) {
@@ -92,7 +92,7 @@ router.get('/github/callback', async (req, res) => {
         
         const userPayload = {name: user.name, username: user.username, id: user.id, provider: user.provider}
 
-        res.redirect(`http://localhost:5173/?token=${jwt.sign(userPayload, process.env.JWT_SECRET)}`)
+        res.redirect(`${process.env.CLIENT_URL}/?token=${jwt.sign(userPayload, process.env.JWT_SECRET)}`)
     
         // res.send({userPayload, token: jwt.sign(userPayload, process.env.JWT_SECRET)})
 
