@@ -7,7 +7,7 @@ const generateRandomString = require('../helpers/generateString.helper')
 
 // Retrieve All Logs for the user
 router.get('/', async (req, res) => {
-    const allLogs = await db.Logs.findAll({where: {userId: req.user.id}, limit: 13, order: [['createdAt', 'DESC']]})
+    const allLogs = await db.Logs.findAll({where: {userId: req.user.id}, order: [['createdAt', 'DESC']]})
     res.send(allLogs)
 })
 
